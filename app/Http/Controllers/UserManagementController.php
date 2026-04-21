@@ -18,7 +18,14 @@ class UserManagementController extends Controller
         return Inertia::render('users/Index', [
             'users' => User::query()
                 ->orderBy('username')
-                ->get(['id', 'username', 'account_type', 'created_on', 'updated_on']),
+                ->get(['id', 'username', 'account_type', 'created_on', 'updated_on'])
+                ->map(fn (User $user): array => [
+                    'id' => $user->id,
+                    'username' => $user->username,
+                    'account_type' => $user->account_type,
+                    'created_on' => $user->created_on?->format('Y/m/d H:i'),
+                    'updated_on' => $user->updated_on?->format('Y/m/d H:i'),
+                ]),
         ]);
     }
 

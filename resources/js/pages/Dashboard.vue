@@ -55,8 +55,8 @@ defineOptions({
 <template>
     <Head title="Home" />
 
-    <div class="space-y-6 p-4">
-        <Card>
+    <div class="space-y-6 p-4 md:p-6">
+        <Card class="border-sidebar-border/70 shadow-sm">
             <CardHeader>
                 <CardTitle>Welcome back</CardTitle>
                 <CardDescription>
@@ -66,43 +66,43 @@ defineOptions({
         </Card>
 
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            <Card class="border-sidebar-border/70">
+            <Card class="border-sidebar-border/70 shadow-sm transition-colors hover:bg-muted/20">
                 <CardHeader>
                     <CardTitle>Subject Management</CardTitle>
                     <CardDescription>View the subject list and manage records based on your role.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Link :href="subjects()" class="text-sm font-medium text-primary underline underline-offset-4">Open subject list</Link>
+                    <Link :href="subjects()" class="text-sm font-medium text-primary transition-colors hover:text-primary/80">Open subject list</Link>
                 </CardContent>
             </Card>
 
-            <Card class="border-sidebar-border/70">
+            <Card class="border-sidebar-border/70 shadow-sm transition-colors hover:bg-muted/20">
                 <CardHeader>
                     <CardTitle>Program Management</CardTitle>
                     <CardDescription>View the program list and update records if you are authorized.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Link :href="programs()" class="text-sm font-medium text-primary underline underline-offset-4">Open program list</Link>
+                    <Link :href="programs()" class="text-sm font-medium text-primary transition-colors hover:text-primary/80">Open program list</Link>
                 </CardContent>
             </Card>
 
-            <Card v-if="props.canManageUsers" class="border-sidebar-border/70">
+            <Card v-if="props.canManageUsers" class="border-sidebar-border/70 shadow-sm transition-colors hover:bg-muted/20">
                 <CardHeader>
                     <CardTitle>User Management</CardTitle>
                     <CardDescription>Admin-only user account management.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Link :href="users()" class="text-sm font-medium text-primary underline underline-offset-4">Open users list</Link>
+                    <Link :href="users()" class="text-sm font-medium text-primary transition-colors hover:text-primary/80">Open users list</Link>
                 </CardContent>
             </Card>
 
-            <Card class="border-sidebar-border/70">
+            <Card class="border-sidebar-border/70 shadow-sm transition-colors hover:bg-muted/20">
                 <CardHeader>
                     <CardTitle>Change Password</CardTitle>
                     <CardDescription>Update your own account password securely.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Link :href="editSecurity()" class="text-sm font-medium text-primary underline underline-offset-4">Go to security settings</Link>
+                    <Link :href="editSecurity()" class="text-sm font-medium text-primary transition-colors hover:text-primary/80">Go to security settings</Link>
                 </CardContent>
             </Card>
         </div>
