@@ -5,23 +5,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
 import { index, store } from '@/routes/subjects';
-
-type ProgramOption = {
-    program_id: number;
-    title: string;
-};
-
-defineProps<{
-    programs: ProgramOption[];
-}>();
 
 defineOptions({
     layout: {
@@ -63,25 +47,6 @@ defineOptions({
                     <Label for="unit">Unit</Label>
                     <Input id="unit" type="number" min="1" step="0.5" name="unit" placeholder="3" required />
                     <InputError :message="errors.unit" />
-                </div>
-
-                <div class="grid gap-2">
-                    <Label for="program">Program</Label>
-                    <Select name="program">
-                        <SelectTrigger id="program">
-                            <SelectValue placeholder="Select a program" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem
-                                v-for="program in programs"
-                                :key="program.program_id"
-                                :value="String(program.program_id)"
-                            >
-                                {{ program.title }}
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <InputError :message="errors.program" />
                 </div>
 
                 <div class="flex items-center gap-3">

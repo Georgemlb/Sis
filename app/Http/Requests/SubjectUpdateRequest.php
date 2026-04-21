@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Subject;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,7 +13,14 @@ class SubjectUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        /** @var Subject|null $subject */
+        $subject = $this->route('subject');
+
+        if ($subject === null) {
+            return false;
+        }
+
+        return $this->user()?->can('update', $subject) ?? false;
     }
 
     /**
@@ -26,7 +34,6 @@ class SubjectUpdateRequest extends FormRequest
             'code' => ['required', 'string', 'max:100'],
             'title' => ['required', 'string', 'max:255'],
             'unit' => ['required', 'numeric', 'gt:0'],
-            'program' => ['required', 'exists:program,program_id'],
         ];
     }
 }

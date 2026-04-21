@@ -14,7 +14,14 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        /** @var User|null $user */
+        $user = $this->route('user');
+
+        if ($user === null) {
+            return false;
+        }
+
+        return $this->user()?->can('update', $user) ?? false;
     }
 
     /**

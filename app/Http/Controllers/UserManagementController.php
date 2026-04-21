@@ -13,6 +13,8 @@ class UserManagementController extends Controller
 {
     public function index(): Response
     {
+        $this->authorize('viewAny', User::class);
+
         return Inertia::render('users/Index', [
             'users' => User::query()
                 ->orderBy('username')
@@ -22,11 +24,15 @@ class UserManagementController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', User::class);
+
         return Inertia::render('users/Create');
     }
 
     public function store(UserStoreRequest $request): RedirectResponse
     {
+        $this->authorize('create', User::class);
+
         User::create([
             ...$request->safe()->except(['password', 'password_confirmation']),
             'password' => $request->password,
@@ -41,6 +47,8 @@ class UserManagementController extends Controller
 
     public function edit(User $user): Response
     {
+        $this->authorize('update', $user);
+
         return Inertia::render('users/Edit', [
             'user' => $user->only(['id', 'username', 'account_type']),
         ]);
@@ -48,6 +56,8 @@ class UserManagementController extends Controller
 
     public function update(UserUpdateRequest $request, User $user): RedirectResponse
     {
+        $this->authorize('update', $user);
+
         $validated = $request->safe()->except(['password', 'password_confirmation']);
 
         if ($request->filled('password')) {
@@ -65,11 +75,7 @@ class UserManagementController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        if ((int) auth()->id() === (int) $user->id) {
-            Inertia::flash('toast', ['type' => 'error', 'message' => 'You cannot delete your own account.']);
-
-            return to_route('users.index');
-        }
+        $this->authorize('delete', $user);
 
         $user->delete();
 

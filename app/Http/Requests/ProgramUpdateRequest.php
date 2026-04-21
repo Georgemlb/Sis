@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Program;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,7 +13,14 @@ class ProgramUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        /** @var Program|null $program */
+        $program = $this->route('program');
+
+        if ($program === null) {
+            return false;
+        }
+
+        return $this->user()?->can('update', $program) ?? false;
     }
 
     /**

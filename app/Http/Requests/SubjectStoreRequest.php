@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Subject;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,7 +13,7 @@ class SubjectStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Subject::class) ?? false;
     }
 
     /**
@@ -26,7 +27,6 @@ class SubjectStoreRequest extends FormRequest
             'code' => ['required', 'string', 'max:100'],
             'title' => ['required', 'string', 'max:255'],
             'unit' => ['required', 'numeric', 'gt:0'],
-            'program' => ['required', 'exists:program,program_id'],
         ];
     }
 }

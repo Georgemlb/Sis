@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import UserInfo from '@/components/UserInfo.vue';
 import { logout } from '@/routes';
-import { edit } from '@/routes/profile';
+import { edit } from '@/routes/security';
 import type { User } from '@/types';
 
 type Props = {
@@ -43,6 +43,7 @@ defineProps<Props>();
         <Link
             class="block w-full cursor-pointer"
             :href="logout()"
+            replace
             @click="handleLogout"
             as="button"
             data-test="logout-button"

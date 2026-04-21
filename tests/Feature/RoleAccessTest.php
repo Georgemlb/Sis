@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Program;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,17 +30,10 @@ test('staff can edit catalog but cannot access user management', function () {
         'account_type' => 'staff',
     ]);
 
-    $program = Program::query()->create([
-        'code' => 'BSIT',
-        'title' => 'Bachelor of Science in Information Technology',
-        'years' => 4,
-    ]);
-
     $subject = Subject::query()->create([
         'code' => 'IT101',
         'title' => 'Introduction to Computing',
         'unit' => 3,
-        'program' => $program->program_id,
     ]);
 
     $this->actingAs($staff)->get('/programs/create')->assertOk();
@@ -54,17 +46,10 @@ test('teacher can view catalog but cannot edit catalog or users', function () {
         'account_type' => 'teacher',
     ]);
 
-    $program = Program::query()->create([
-        'code' => 'BSCS',
-        'title' => 'Bachelor of Science in Computer Science',
-        'years' => 4,
-    ]);
-
     $subject = Subject::query()->create([
         'code' => 'CS102',
         'title' => 'Data Structures',
         'unit' => 3,
-        'program' => $program->program_id,
     ]);
 
     $this->actingAs($teacher)->get('/programs')->assertOk();

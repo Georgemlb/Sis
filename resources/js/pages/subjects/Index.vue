@@ -9,10 +9,6 @@ type Subject = {
     code: string;
     title: string;
     unit: number;
-    programDetails?: {
-        program_id: number;
-        title: string;
-    };
 };
 
 defineProps<{
@@ -55,7 +51,6 @@ defineOptions({
                         <th class="px-4 py-3 font-semibold">Code</th>
                         <th class="px-4 py-3 font-semibold">Title</th>
                         <th class="px-4 py-3 font-semibold">Unit</th>
-                        <th class="px-4 py-3 font-semibold">Program</th>
                         <th class="px-4 py-3 font-semibold">Actions</th>
                     </tr>
                 </thead>
@@ -68,7 +63,6 @@ defineOptions({
                         <td class="px-4 py-3">{{ subject.code }}</td>
                         <td class="px-4 py-3">{{ subject.title }}</td>
                         <td class="px-4 py-3">{{ subject.unit }}</td>
-                        <td class="px-4 py-3">{{ subject.programDetails?.title ?? '-' }}</td>
                         <td class="px-4 py-3">
                             <Link
                                 v-if="canEditCatalog"
@@ -81,7 +75,7 @@ defineOptions({
                         </td>
                     </tr>
                     <tr v-if="subjects.length === 0" class="border-t border-sidebar-border/60">
-                        <td class="px-4 py-6 text-center text-muted-foreground" colspan="5">
+                        <td class="px-4 py-6 text-center text-muted-foreground" colspan="4">
                             No subjects found.
                         </td>
                     </tr>

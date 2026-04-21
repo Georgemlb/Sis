@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, onMounted } from 'vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboard } from '@/routes';
 import { index as programs } from '@/routes/programs';
@@ -17,6 +17,28 @@ const props = defineProps<Props>();
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+
+const preventBackNavigation = (): void => {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    window.history.pushState(null, '', window.location.href);
+
+    const handlePopState = (): void => {
+        window.history.pushState(null, '', window.location.href);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    onBeforeUnmount(() => {
+        window.removeEventListener('popstate', handlePopState);
+    });
+};
+
+onMounted(() => {
+    preventBackNavigation();
+});
 
 defineOptions({
     layout: {
