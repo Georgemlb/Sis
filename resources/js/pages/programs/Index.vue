@@ -59,7 +59,7 @@ defineOptions({
                             <th class="px-4 py-3 font-semibold">Code</th>
                             <th class="px-4 py-3 font-semibold">Title</th>
                             <th class="px-4 py-3 font-semibold">Years</th>
-                            <th class="px-4 py-3 text-right font-semibold">Actions</th>
+                            <th v-if="canEditCatalog" class="px-4 py-3 text-right font-semibold">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,19 +71,17 @@ defineOptions({
                             <td class="px-4 py-3.5 font-medium text-foreground">{{ program.code }}</td>
                             <td class="px-4 py-3.5">{{ program.title }}</td>
                             <td class="px-4 py-3.5 font-mono text-xs text-muted-foreground">{{ program.years }}</td>
-                            <td class="px-4 py-3.5 text-right">
+                            <td v-if="canEditCatalog" class="px-4 py-3.5 text-right">
                                 <Link
-                                    v-if="canEditCatalog"
                                     :href="edit(program.program_id)"
                                     class="font-medium text-primary transition-colors hover:text-primary/80"
                                 >
                                     Edit
                                 </Link>
-                                <span v-else class="text-muted-foreground">View only</span>
                             </td>
                         </tr>
                         <tr v-if="programs.length === 0" class="border-t border-sidebar-border/60">
-                            <td class="px-4 py-6 text-center text-muted-foreground" colspan="4">
+                            <td class="px-4 py-6 text-center text-muted-foreground" :colspan="canEditCatalog ? 4 : 3">
                                 No programs found.
                             </td>
                         </tr>

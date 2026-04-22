@@ -24,7 +24,7 @@ defineProps<{
                 <blockquote class="text-2xl font-light leading-relaxed opacity-90">
                     "Manage academic programs, subjects, and user accounts in one place."
                 </blockquote>
-                <p class="text-sm opacity-50">Ateneo de Naga University — Information System</p>
+                <p class="text-sm opacity-50">Student Information System</p>
             </div>
 
             <p class="text-xs opacity-40">
