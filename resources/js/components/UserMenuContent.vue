@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
 import { LogOut, Settings } from 'lucide-vue-next';
 import {
@@ -16,11 +16,12 @@ type Props = {
     user: User;
 };
 
+defineProps<Props>();
+
 const handleLogout = () => {
     router.flushAll();
+    router.post(logout(), {}, { replace: true });
 };
-
-defineProps<Props>();
 </script>
 
 <template>
@@ -39,17 +40,12 @@ defineProps<Props>();
         </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
-    <DropdownMenuItem :as-child="true">
-        <Link
-            class="block w-full cursor-pointer"
-            :href="logout()"
-            replace
-            @click="handleLogout"
-            as="button"
-            data-test="logout-button"
-        >
-            <LogOut class="mr-2 h-4 w-4" />
-            Log out
-        </Link>
+    <DropdownMenuItem
+        class="cursor-pointer text-destructive focus:text-destructive"
+        data-test="logout-button"
+        @click="handleLogout"
+    >
+        <LogOut class="mr-2 h-4 w-4" />
+        Log out
     </DropdownMenuItem>
 </template>
